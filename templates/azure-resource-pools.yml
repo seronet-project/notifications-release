@@ -1,0 +1,14 @@
+networks: (( merge ))
+jobs: (( merge ))
+properties: (( merge ))
+infrastructure_properties: (( merge ))
+
+resource_pools:
+- name: default
+  network: (( properties.notifications.network ))
+  stemcell:
+    name: bosh-azure-hyperv-ubuntu-xenial-go_agent
+    version: latest
+  cloud_properties:
+    instance_type: minimal
+    availability_zone: (( infrastructure_properties.availability_zone ))
