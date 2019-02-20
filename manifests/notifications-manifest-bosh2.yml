@@ -2,14 +2,16 @@ name: notifications
 
 stemcells:
   - alias: default
-    os: ubuntu-trusty
+    os: ubuntu-xenial
     version: latest
 
 releases:
   - name: notifications
     version: latest
   - name: backup-and-restore-sdk
-    version: latest
+    version: "1.13.0"
+    url: "https://bosh.io/d/github.com/cloudfoundry-incubator/backup-and-restore-sdk-release?v=1.13.0"
+    sha1: "55f3eec316257dc95ab7ee9d160acbed6bafa0f5"
   - name: cf-cli
     version: 1.11.0
   - name: bpm
@@ -20,7 +22,7 @@ instance_groups:
     azs:
       - z1
     instances: 1
-    vm_type: minimal
+    vm_type: sharedcpu
     stemcell: default
     networks:
       - name: default
@@ -38,7 +40,7 @@ instance_groups:
     azs:
       - z1
     instances: 1
-    vm_type: minimal
+    vm_type: small
     stemcell: default
     lifecycle: errand
     networks:
@@ -55,7 +57,7 @@ instance_groups:
     azs:
       - z1
     instances: 1
-    vm_type: minimal
+    vm_type: small
     stemcell: default
     lifecycle: errand
     networks:
@@ -72,7 +74,7 @@ instance_groups:
     azs:
       - z1
     instances: 1
-    vm_type: minimal
+    vm_type: small
     stemcell: default
     lifecycle: errand
     networks:
@@ -136,3 +138,5 @@ update:
   canary_watch_time: 30000-240000
   max_in_flight: 3
   update_watch_time: 30000-600000
+
+
