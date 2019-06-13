@@ -13,19 +13,20 @@ releases:
     url: "https://bosh.io/d/github.com/cloudfoundry-incubator/backup-and-restore-sdk-release?v=1.13.0"
     sha1: "55f3eec316257dc95ab7ee9d160acbed6bafa0f5"
   - name: cf-cli
-    version: 1.11.0
+    version: latest
   - name: bpm
     version: latest
 
 instance_groups:
   - name: backup-restore-notifications
     azs:
-      - z1
+      - "((network_az))"
+    vm_extensions: [public_ip]
     instances: 1
-    vm_type: sharedcpu
+    vm_type: micro
     stemcell: default
     networks:
-      - name: default
+      - name: ((network_name))
     jobs:
       - name: backup-restore-notifications
         release: notifications
@@ -38,13 +39,14 @@ instance_groups:
 
   - name: deploy-notifications
     azs:
-      - z1
+      - "((network_az))"
+    vm_extensions: [public_ip]
     instances: 1
-    vm_type: small
+    vm_type: micro
     stemcell: default
     lifecycle: errand
     networks:
-      - name: default
+      - name: ((network_name))
     jobs:
       - name: deploy-notifications
         release: notifications
@@ -55,13 +57,14 @@ instance_groups:
 
   - name: destroy-notifications
     azs:
-      - z1
+      - "((network_az))"
+    vm_extensions: [public_ip]
     instances: 1
-    vm_type: small
+    vm_type: micro
     stemcell: default
     lifecycle: errand
     networks:
-      - name: default
+      - name: ((network_name))
     jobs:
       - name: destroy-notifications
         release: notifications
@@ -72,13 +75,14 @@ instance_groups:
 
   - name: test-notifications
     azs:
-      - z1
+      - "((network_az))"
+    vm_extensions: [public_ip]
     instances: 1
-    vm_type: small
+    vm_type: micro
     stemcell: default
     lifecycle: errand
     networks:
-      - name: default
+      - name: ((network_name))
     jobs:
       - name: test-notifications
         release: notifications

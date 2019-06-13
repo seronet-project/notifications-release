@@ -7,11 +7,17 @@ source ${JOB_PATH}/bin/common
 
 cf_auth_and_target
 
-echo "Restoring route for $APP_NAME.$APP_DOMAIN"
+if [[ -x /var/vcap/jobs/deploy-notifications/bin/run ]]; then
+  echo "\"deploy-notifications\" errand found: running"
+  /var/vcap/jobs/deploy-notifications/bin/run
+  echo "\"deploy-notifications\" errand found: finished"
+else
+  echo "Restoring route for $APP_NAME.$APP_DOMAIN"
 
-cf map-route $APP_NAME --hostname $APP_NAME $APP_DOMAIN
+  cf map-route $APP_NAME --hostname $APP_NAME $APP_DOMAIN
 
-echo "DONE Restoring route for $APP_NAME.$APP_DOMAIN"
+  echo "DONE Restoring route for $APP_NAME.$APP_DOMAIN"
+fi
 
 <% else %>
 echo "script deactivated due to release_level_backup being set to FALSE\n"
